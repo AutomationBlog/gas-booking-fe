@@ -9,6 +9,16 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/automationblog/gas-booking-fe.git"
+  },
+  "author": "Alwin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/automationblog/gas-booking-fe/issues"
+  },
+  "homepage": "https://github.com/automationblog/gas-booking-fe#readme",
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.6",
     "axios": "^1.7.2",
