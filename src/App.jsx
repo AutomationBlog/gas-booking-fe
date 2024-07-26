@@ -1,7 +1,7 @@
 import "./App.css";
 import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
-import Registration from "./pages/Registration.jsx";
+import Registration from "./pages/RegistrationPage.jsx";
 
 import {
   BrowserRouter as Router,
