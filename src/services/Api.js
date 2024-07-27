@@ -5,7 +5,6 @@ axios.defaults.baseURL = import.meta.env.VITE_CLOUDE_URL;
 if (import.meta.env.VITE_isLOCAL === "true") {
   axios.defaults.baseURL = import.meta.env.VITE_LOCAL_URL;
 }
-
 export const handledAPIPost = async (url, data) => {
   return await axios.post(url, data);
 };
