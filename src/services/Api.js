@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getUserData } from "./Storage";
 
-axios.defaults.baseURL = import.meta.env.VITE_CLOUDE_URL;
+axios.defaults.baseURL = import.meta.env.VITE_CLOUD_URL;
 if (import.meta.env.VITE_isLOCAL === "true") {
   axios.defaults.baseURL = import.meta.env.VITE_LOCAL_URL;
 }

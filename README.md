@@ -1,12 +1,30 @@
-# React + Vite
+## GAS Booking APP
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+GAS Booking APP
 
-Currently, two official plugins are available:
+## API Endpoints
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[Gas Booking APP](https://gas-booking-api.onrender.com/)
 
-## NPM Packages
+## Dependencies
 
-npm i @reduxjs/toolkit axios jwt-decode react react-dom react-redux react-router-dom
+- @reduxjs/toolkit
+- axios
+- jwt-decode
+- react
+- react-bootstrap
+- react-dom
+- react-redux
+- react-router-dom
+
+npm install @reduxjs/toolkit axios jwt-decode react react-bootstrap react-dom react-redux react-router-dom
+
+## Testing
+
+npm run dev
+
+## .env
+
+- VITE_LOCAL_URL=http://localhost:3000
+- VITE_CLOUD_URL=<API URL>
+- VITE_isLOCAL="false"
