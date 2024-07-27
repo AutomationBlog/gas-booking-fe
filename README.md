@@ -26,5 +26,5 @@ npm run dev
 ## .env
 
 - VITE_LOCAL_URL=http://localhost:3000
-- VITE_CLOUD_URL=<API URL>
+- VITE_CLOUD_URL=https://gas-booking-api.onrender.com
 - VITE_isLOCAL="false"
