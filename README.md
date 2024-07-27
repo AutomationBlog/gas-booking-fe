@@ -4,7 +4,7 @@ GAS Booking APP
 
 ## API Endpoints
 
-[Gas Booking APP](https://gas-booking-api.onrender.com/)
+[Gas Booking APP](https://gas-booking-app.netlify.app/)
 
 ## Dependencies
 
