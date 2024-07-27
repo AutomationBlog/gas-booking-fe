@@ -1,48 +1,41 @@
 import React, { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import "./RegistrationPage.css";
+import "./LoginPage.css";
+import { isAuthenticated } from "../services/Auth";
 import { handledAPIPost } from "../services/Api";
 import { storeUserData } from "../services/Storage";
-import { isAuthenticated } from "../services/Auth";
-import { Link, Navigate } from "react-router-dom";
 
-const Registration = () => {
-  const initialStateErrors = {
+const Login = () => {
+  let initialStateErrors = {
     email: { required: false },
     password: { required: false },
-    name: { required: false },
     custom_error: null,
   };
-  //For Error message
-  const [errors, setErrors] = useState(initialStateErrors);
 
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
+  const [loginform, setLoginform] = useState({
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState(initialStateErrors);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
+    setLoginform((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     let errors = initialStateErrors;
     let hasError = false;
-    if (formData.name == "") {
-      errors.name.required = true;
-      hasError = true;
-    }
-    if (formData.email == "") {
+    if (loginform.email == "") {
       errors.email.required = true;
       hasError = true;
     }
-    if (formData.password == "") {
+    if (loginform.password == "") {
       errors.password.required = true;
       hasError = true;
     }
@@ -51,13 +44,19 @@ const Registration = () => {
       if (!hasError) {
         setLoading(true);
 
-        await handledAPIPost("/api/auth/register", formData)
+        // TODO: Handle login submission
+        await handledAPIPost("/api/auth/login", loginform)
           .then((response) => {
             storeUserData(response.data);
           })
           .catch((err) => {
             console.log(err);
-            if (err.response.status == 400) {
+            if (
+              err.response.status == 400 ||
+              err.response.status == 401 ||
+              err.response.status == 403 ||
+              err.response.status == 404
+            ) {
               setErrors((prevData) => ({
                 ...prevData,
                 custom_error: String(err.response.data.message),
@@ -66,12 +65,11 @@ const Registration = () => {
           })
           .finally(() => setLoading(false));
       }
-    } catch (err) {
-      alert(err.message);
+    } catch (error) {
+      alert(error);
     }
 
-    setFormData({
-      name: "",
+    setLoginform({
       email: "",
       password: "",
     });
@@ -82,41 +80,24 @@ const Registration = () => {
   }
 
   return (
-    <section className="register-block">
+    <section className="login-block">
       <div className="container">
         <div className="row ">
-          <div className="col register-sec">
-            <h2 className="text-center">Register Now</h2>
-            <form onSubmit={handleSubmit} className="register-form" action="">
-              <div className="form-group">
-                <label htmlFor="exampleInputEmail1" className="text-uppercase">
-                  Name
-                </label>
-
-                <input
-                  type="text"
-                  className="form-control"
-                  onChange={handleChange}
-                  name="name"
-                  value={formData.name}
-                  id=""
-                />
-                {errors.name.required && (
-                  <span className="text-danger">Name is required.</span>
-                )}
-              </div>
+          <div className="col login-sec">
+            <h2 className="text-center">Login Now</h2>
+            <form onSubmit={handleSubmit} className="login-form" action="">
               <div className="form-group">
                 <label htmlFor="exampleInputEmail1" className="text-uppercase">
                   Email
                 </label>
-
                 <input
                   type="email"
                   className="form-control"
                   onChange={handleChange}
                   name="email"
-                  value={formData.email}
+                  value={loginform.email}
                   id=""
+                  placeholder="email"
                 />
                 {errors.email.required && (
                   <span className="text-danger">Email is required.</span>
@@ -134,7 +115,8 @@ const Registration = () => {
                   type="password"
                   onChange={handleChange}
                   name="password"
-                  value={formData.password}
+                  value={loginform.password}
+                  placeholder="password"
                   id=""
                 />
                 {errors.password.required && (
@@ -142,27 +124,27 @@ const Registration = () => {
                 )}
               </div>
               <div className="form-group">
-                <span className="text-danger">
-                  {errors.custom_error && <p>{errors.custom_error}</p>}
-                </span>
-                {loading && (
-                  <div className="text-center">
+                <div className="text-center">
+                  {loading && (
                     <div className="spinner-border text-primary " role="status">
                       <span className="sr-only">Loading...</span>
                     </div>
-                  </div>
-                )}
-
+                  )}
+                </div>
+                <span className="text-danger">
+                  {errors.custom_error && <p>{errors.custom_error}</p>}
+                </span>
                 <input
                   type="submit"
                   className="btn btn-login float-right"
                   disabled={loading}
-                  value="Register"
+                  value="Login"
                 />
               </div>
               <div className="clearfix"></div>
               <div className="form-group">
-                Already have account ? Please <Link to={"/login"}>Login</Link>
+                Create new account ? Please{" "}
+                <Link to="/registration">Register</Link>
               </div>
             </form>
           </div>
@@ -172,4 +154,4 @@ const Registration = () => {
   );
 };
 
-export default Registration;
+export default Login;
