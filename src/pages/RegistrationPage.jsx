@@ -142,7 +142,7 @@ const Registration = () => {
                 )}
               </div>
               <div className="form-group  mt-2">
-                <span className="text-danger">
+                <span className="text-danger text-center">
                   {errors.custom_error && <p>{errors.custom_error}</p>}
                 </span>
                 {loading && (
@@ -152,16 +152,19 @@ const Registration = () => {
                     </div>
                   </div>
                 )}
-
-                <input
-                  type="submit"
-                  className="btn btn-outline-primary"
-                  disabled={loading}
-                  value="Register"
-                />
+                <div className="d-flex justify-content-end">
+                  <button
+                    type="submit"
+                    className="btn btn-outline-primary"
+                    disabled={loading}
+                    value="Register"
+                  >
+                    Register
+                  </button>
+                </div>
               </div>
               <div className="clearfix"></div>
-              <div className="form-group">
+              <div className="form-group text-center">
                 Already have account ? Please <Link to={"/login"}>Login</Link>
               </div>
             </form>

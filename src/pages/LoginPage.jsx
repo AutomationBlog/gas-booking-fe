@@ -131,18 +131,21 @@ const Login = () => {
                     </div>
                   )}
                 </div>
-                <span className="text-danger">
+                <span className="text-danger text-center">
                   {errors.custom_error && <p>{errors.custom_error}</p>}
                 </span>
-                <input
-                  type="submit"
-                  className="btn btn-outline-primary"
-                  disabled={loading}
-                  value="Login"
-                />
+                <div className="d-grid justify-content-end">
+                  <button
+                    type="submit"
+                    className="btn btn-outline-primary"
+                    disabled={loading}
+                  >
+                    Login
+                  </button>
+                </div>
               </div>
               <div className="clearfix"></div>
-              <div className="form-group">
+              <div className="form-group text-center">
                 Create new account ? Please{" "}
                 <Link to="/registration">Register</Link>
               </div>
