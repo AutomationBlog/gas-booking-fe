@@ -82,10 +82,10 @@ const Registration = () => {
   }
 
   return (
-    <section className="register-block">
-      <div className="container">
-        <div className="row ">
-          <div className="col register-sec">
+    <section className="container-fluid mt-5">
+      <div className="container-lg col-sm col-md-6 col-lg-6">
+        <div className="row justify-content-center">
+          <div className="container-sm-md col-lg-6 p-4 bg-dark-subtle rounded-3 register-sec">
             <h2 className="text-center">Register Now</h2>
             <form onSubmit={handleSubmit} className="register-form" action="">
               <div className="form-group">
@@ -141,21 +141,21 @@ const Registration = () => {
                   <span className="text-danger">Password is required.</span>
                 )}
               </div>
-              <div className="form-group">
+              <div className="form-group  mt-2">
                 <span className="text-danger">
                   {errors.custom_error && <p>{errors.custom_error}</p>}
                 </span>
                 {loading && (
                   <div className="text-center">
                     <div className="spinner-border text-primary " role="status">
-                      <span className="sr-only">Loading...</span>
+                      {/* <span className="sr-only">Loading...</span> */}
                     </div>
                   </div>
                 )}
 
                 <input
                   type="submit"
-                  className="btn btn-login float-right"
+                  className="btn btn-outline-primary"
                   disabled={loading}
                   value="Register"
                 />

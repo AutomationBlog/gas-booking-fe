@@ -80,10 +80,10 @@ const Login = () => {
   }
 
   return (
-    <section className="login-block">
-      <div className="container">
-        <div className="row ">
-          <div className="col login-sec">
+    <section className="container-fluid mt-5">
+      <div className="container-lg col-sm col-md-6 col-lg-6">
+        <div className="row justify-content-center">
+          <div className="container-sm-md col-lg-6 p-4 bg-dark-subtle rounded-3 login-sec">
             <h2 className="text-center">Login Now</h2>
             <form onSubmit={handleSubmit} className="login-form" action="">
               <div className="form-group">
@@ -123,11 +123,11 @@ const Login = () => {
                   <span className="text-danger">Password is required.</span>
                 )}
               </div>
-              <div className="form-group">
+              <div className="form-group mt-2">
                 <div className="text-center">
                   {loading && (
                     <div className="spinner-border text-primary " role="status">
-                      <span className="sr-only">Loading...</span>
+                      {/* <span className="sr-only">Loading...</span> */}
                     </div>
                   )}
                 </div>
@@ -136,7 +136,7 @@ const Login = () => {
                 </span>
                 <input
                   type="submit"
-                  className="btn btn-login float-right"
+                  className="btn btn-outline-primary"
                   disabled={loading}
                   value="Login"
                 />

@@ -1,4 +1,4 @@
-import "./App.css";
+// import "./App.css";
 import Home from "./pages/Home.jsx";
 import Login from "./pages/LoginPage.jsx";
 import Registration from "./pages/RegistrationPage.jsx";

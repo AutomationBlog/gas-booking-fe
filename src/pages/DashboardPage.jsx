@@ -8,7 +8,6 @@ import {
   Button,
   Container,
 } from "react-bootstrap";
-import { UserDetailsApi } from "../services/Api";
 import { isAuthenticated } from "../services/Auth";
 
 const DashboardPage = () => {
@@ -39,46 +38,42 @@ const DashboardPage = () => {
 
   return (
     <>
-      <Navbar bg="light" expand="sm" className="flex-row">
-        <Navbar.Brand href="/dashboard">
-          <span style={{ fontWeight: "2rem", marginLeft: "10px" }}>Home</span>
-        </Navbar.Brand>
-        <Navbar.Collapse className="justify-content-end">
-          <Nav>
-            <Dropdown show={showDropdown} onToggle={handleDropdownToggle}>
-              <Dropdown.Toggle variant="button" id="dropdown-basic">
-                <Image
-                  src="/profile-picture.png"
-                  roundedCircle
-                  style={{ width: "30px", height: "30px" }}
-                />
-                <span className="ml-2">{userData.name.toUpperCase()}</span>
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item>My Profile</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item>
-                  <Nav.Link
-                    onClick={handleLogout}
-                    style={{ cursor: "pointer" }}
-                    to="/"
-                    as={Link}
-                  >
-                    Logout
-                  </Nav.Link>
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-      <Container className="mt-5" fluid>
-        <div className="text-center mt-5">
-          <h3>Dashboard page</h3>
-          <p className="text-bold ">Hi {userData.name},</p>
-          <p className="text-bold ">Your Email is {userData.email}</p>
+      <nav class="navbar navbar-dark bg-dark ">
+        <div class="container-sm container-md">
+          <div class="col-6">
+            <a class="navbar-brand" href="/dashboard">
+              Dashboard
+            </a>
+          </div>
+          <div class="dropdown mt-2">
+            <image src="/profile-picture.png" />
+            <button
+              class="btn bg-white text-dark dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+            >
+              <img
+                src="/profile-picture.png"
+                style={{ width: "30px", height: "30px" }}
+              />
+              <span class="mx-2 mt-1">{userData.name}</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item">My Profile</a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <Link class="dropdown-item" onClick={handleLogout} to="/">
+                  Logout
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
-      </Container>
+      </nav>
     </>
   );
 };
