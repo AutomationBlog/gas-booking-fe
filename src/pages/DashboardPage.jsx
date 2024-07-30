@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { handledAPIPatch, handledAPIGet } from "../services/Api";
+import {
+  handledAPIPatch,
+  handledAPIGet,
+  handledAPIPost,
+  handleAPIDelete,
+} from "../services/Api";
 import { gasProviders } from "../services/gasProvider.js";
 import {
   Navbar,
@@ -23,31 +28,51 @@ const DashboardPage = () => {
     pincode: { required: false },
     custom_error: null,
   };
+  let initalBookingErrors = {
+    agencyname: { required: false },
+    datetime: { required: false },
+    custom_error: null,
+  };
   const [userData, setUserData] = useState({
     name: "",
     email: "",
-    phone: 0,
+    phone: 0o0,
     address: "",
-    pincode: 0,
+    pincode: 0o0,
   });
 
   const [bookingData, setBookingData] = useState({
     bookingId: "",
+    name: "",
     agencyname: "",
     datetime: "",
     status: "",
   });
+  const [userbookingData, setUserBookingData] = useState([
+    {
+      bookingId: "",
+      name: "",
+      agencyname: "",
+      datetime: "",
+      status: "",
+    },
+  ]);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(initialStateErrors);
+  const [bookingErrors, setBookingErrors] = useState(initalBookingErrors);
+  let bookingsArr = [];
   useEffect(() => {
     let name = JSON.parse(localStorage.getItem("userData")).user.name;
     let email = JSON.parse(localStorage.getItem("userData")).user.email;
     setUserData({ name, email });
+    setBookingData({
+      name: name,
+    });
     handledAPIGet("/booking/" + name)
       .then((response) => {
-        console.log(response);
-        setBookingData(response.data.booking);
-        console.log(bookingData);
+        if (response.data.booking.length > 0) {
+          setUserBookingData(response.data.booking);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -147,6 +172,65 @@ const DashboardPage = () => {
     }));
   };
 
+  const handleChangeBooking = (event) => {
+    const { name, value } = event.target;
+    setBookingData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleCreateBooking = async (event) => {
+    event.preventDefault();
+    let errors = initalBookingErrors;
+    let hasError = false;
+    if (bookingData.agencyname == "") {
+      bookingErrors.agencyname.required = true;
+      hasError = true;
+    }
+    if (bookingData.datetime == "") {
+      bookingErrors.datetime.required = true;
+      hasError = true;
+    }
+    setBookingErrors({ ...errors });
+
+    try {
+      if (!hasError) {
+        setLoading(true);
+        handledAPIPost("/booking/create", bookingData)
+          .then((response) => {
+            alert(response.data.message);
+          })
+          .catch((err) => {
+            console.log(err);
+            setBookingErrors((prevData) => ({
+              ...prevData,
+              custom_error: String(err.response.data.message),
+            }));
+          })
+          .finally(() => {
+            setLoading(false);
+            <Navigate to="/dashboard" />;
+          });
+      }
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const handleDeleteBooking = async (bookingid) => {
+    handleAPIDelete("/booking/" + bookingid)
+      .then((response) => {
+        alert(response.data.message);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        <Navigate to="/dashboard" />;
+      });
+  };
+
   if (!isAuthenticated()) {
     return <Navigate to="/Login" />;
   }
@@ -222,6 +306,48 @@ const DashboardPage = () => {
               <span className="btn-text mx-2">Create Booking</span>
               <i className="bi bi-plus-circle"></i>
             </button>
+          </div>
+          <div className="table-responsive">
+            <table className="table table-hover table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Booking Number</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Agency Name</th>
+                  <th scope="col">Date Time</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {userbookingData.map((booking, index) => (
+                  <tr key={index}>
+                    <td>{booking.bookingid}</td>
+                    <td>{booking.name}</td>
+                    <td>{booking.agencyname}</td>
+                    <td>{booking.datetime}</td>
+                    <td>{booking.status}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-outline-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#creareBooking"
+                      >
+                        <i className="bi bi-pencil"></i>
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-outline-danger mx-3"
+                        onClick={() => handleDeleteBooking(booking.bookingid)}
+                      >
+                        <i className="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -375,8 +501,7 @@ const DashboardPage = () => {
                     className="form-select"
                     name="agencyname"
                     id="agencyname"
-                    onChange={handleChange}
-                    value={userData.agencyname}
+                    onChange={handleChangeBooking}
                   >
                     {gasProviders.map((item, index) => (
                       <option key={index} value={item.label}>
@@ -384,17 +509,50 @@ const DashboardPage = () => {
                       </option>
                     ))}
                   </select>
+                  {bookingErrors.agencyname.required && (
+                    <span className="text-danger">
+                      Agency Name is required.
+                    </span>
+                  )}
                 </div>
                 <div className="mb-3 mr-2">
-                  {/* <label htmlFor="Time Slot" className="form-label">
-                    Select Date and Time Slot
-                  </label> */}
-                  <DateTimePicker />
+                  <label htmlFor="Time Slot" className="form-label">
+                    Select Date and Time Slot (Format : 12/03/2024 10:30 AM)
+                  </label>
+                  {/* <DateTimePicker /> */}
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="datetime"
+                    onChange={handleChangeBooking}
+                    placeholder="DD/MM/YYYY HH:MM AM/PM"
+                  />
+                  {bookingErrors.datetime.required && (
+                    <span className="text-danger">
+                      Date and Time is required.
+                    </span>
+                  )}
                 </div>
               </form>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-outline-primary">
+              <div className="text-center">
+                {loading && (
+                  <div className="spinner-border text-primary " role="status">
+                    {/* <span className="sr-only">Loading...</span> */}
+                  </div>
+                )}
+              </div>
+              <span className="text-danger text-center">
+                {bookingErrors.custom_error && (
+                  <p>{bookingErrors.custom_error}</p>
+                )}
+              </span>
+              <button
+                type="button"
+                className="btn btn-outline-primary"
+                onClick={handleCreateBooking}
+              >
                 Create Booking
               </button>
               <button className="btn btn-secondary" data-bs-dismiss="modal">

@@ -23,3 +23,7 @@ export const UserDetailsApi = async (url) => {
 export const handledAPIPatch = async (url, data) => {
   return await axios.patch(url, data);
 };
+
+export const handleAPIDelete = async (url) => {
+  return await axios.delete(url);
+};
