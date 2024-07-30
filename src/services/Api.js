@@ -19,3 +19,7 @@ export const UserDetailsApi = async (url) => {
 
   return await axios.post(url, data);
 };
+
+export const handledAPIPatch = async (url, data) => {
+  return await axios.patch(url, data);
+};
