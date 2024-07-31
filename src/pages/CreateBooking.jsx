@@ -72,12 +72,12 @@ export default function CreateBooking() {
   };
 
   return (
-    <div>
+    <div className="container">
       <div className="container mt-5 ">
         <div className="col-12">
           <h3>Create Booking</h3>
           <div className="row">
-            <form className="col-4" onSubmit={handleCreateBooking}>
+            <form className="col-5" onSubmit={handleCreateBooking}>
               <div className="mb-3">
                 <label htmlFor="Agency" className="form-label">
                   Select Agency

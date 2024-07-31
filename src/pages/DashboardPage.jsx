@@ -40,19 +40,18 @@ const DashboardPage = () => {
   });
 
   const [userbookingData, setUserBookingData] = useState([
-    {
-      bookingId: "",
-      name: "",
-      agencyname: "",
-      datetime: "",
-      status: "",
-    },
+    // {
+    //   bookingId: "",
+    //   name: "",
+    //   agencyname: "",
+    //   datetime: "",
+    //   status: "",
+    // },
   ]);
 
   const [loading, setLoading] = useState(false);
   const [isEditBooking, setIsEditBooking] = useState(false);
   const [errors, setErrors] = useState(initialStateErrors);
-  let bookingsArr = [];
   useEffect(() => {
     let name = JSON.parse(localStorage.getItem("userData")).user.name;
     let email = JSON.parse(localStorage.getItem("userData")).user.email;
@@ -160,14 +159,6 @@ const DashboardPage = () => {
       [name]: value,
     }));
   };
-  // const [editBookingData, setEditBookingData] = useState();
-  // // {
-  // // bookingId: "",
-  // // name: "",
-  // // agencyname: "",
-  // // datetime: "",
-  // // status: "",
-  // // }
 
   let editbooking;
   const handleEditBooking = async (bookingValue) => {
@@ -242,54 +233,56 @@ const DashboardPage = () => {
       </nav>
       {isEditBooking ? <EditBooking /> : <CreateBooking />}
 
-      <div className="container mt-5 ">
-        <div className="container">
-          <div className="col-12">
-            <h3>Booking History</h3>
-          </div>
-          <div className="table-responsive">
-            <table className="table table-hover table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">Booking Number</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Agency Name</th>
-                  <th scope="col">Date Time</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {userbookingData.map((booking, index) => (
-                  <tr key={index}>
-                    <td>{booking.bookingid}</td>
-                    <td>{booking.name}</td>
-                    <td>{booking.agencyname}</td>
-                    <td>{booking.datetime}</td>
-                    <td>{booking.status}</td>
-                    <td>
-                      <button
-                        type="button"
-                        className="btn btn-outline-success"
-                        onClick={() => handleEditBooking(booking)}
-                      >
-                        <i className="bi bi-pencil"></i>
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-outline-danger mx-3"
-                        onClick={() => handleDeleteBooking(booking.bookingid)}
-                      >
-                        <i className="bi bi-trash"></i>
-                      </button>
-                    </td>
+      {userbookingData.length > 0 ? (
+        <div className="container mt-5 ">
+          <div className="container">
+            <div className="col-12">
+              <h3>Booking History</h3>
+            </div>
+            <div className="table-responsive">
+              <table className="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Booking Number</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Agency Name</th>
+                    <th scope="col">Date Time</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {userbookingData.map((booking, index) => (
+                    <tr key={index}>
+                      <td>{booking.bookingid}</td>
+                      <td>{booking.name}</td>
+                      <td>{booking.agencyname}</td>
+                      <td>{booking.datetime}</td>
+                      <td>{booking.status}</td>
+                      <td>
+                        <button
+                          type="button"
+                          className="btn btn-outline-success"
+                          onClick={() => handleEditBooking(booking)}
+                        >
+                          <i className="bi bi-pencil"></i>
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-outline-danger mx-3"
+                          onClick={() => handleDeleteBooking(booking.bookingid)}
+                        >
+                          <i className="bi bi-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
+      ) : null}
       {/* Profile Model */}
       <div className="modal fade mt-5" id="UserProfile">
         <div className="modal-dialog">
