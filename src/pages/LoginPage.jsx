@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./LoginPage.css";
-import { isAuthenticated } from "../services/Auth";
+import { isAuthenticated, isAdmin } from "../services/Auth";
 import { handledAPIPost } from "../services/Api";
 import { storeUserData } from "../services/Storage";
 
@@ -76,7 +76,11 @@ const Login = () => {
   };
 
   if (isAuthenticated()) {
-    return <Navigate to="/dashboard" />;
+    if (isAdmin()) {
+      return <Navigate to="/admin" />;
+    } else {
+      return <Navigate to="/dashboard" />;
+    }
   }
 
   return (
