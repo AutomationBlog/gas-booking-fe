@@ -5,5 +5,5 @@ export const isAuthenticated = () => {
 };
 
 export const isAdmin = () => {
-  return getUserData().user.name === "admin" ? true : false;
+  return getUserData().user.email === "admin@gmail.com" ? true : false;
 };
