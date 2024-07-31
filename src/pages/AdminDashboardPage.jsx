@@ -63,10 +63,13 @@ const DashboardPage = () => {
         console.log(err);
       });
   };
-  useEffect(() => {
+  const setProfileData = async () => {
     let name = JSON.parse(localStorage.getItem("userData")).user.name;
     let email = JSON.parse(localStorage.getItem("userData")).user.email;
     setUserData({ name, email });
+  };
+  useEffect(() => {
+    setProfileData();
     getAllBookings();
   }, []);
 
