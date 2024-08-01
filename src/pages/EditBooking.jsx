@@ -87,7 +87,10 @@ export default function EditBooking() {
         <div className="col-12">
           <h3>Edit Booking</h3>
           <div className="row">
-            <form className="col-4" onSubmit={handleCreateBooking}>
+            <form
+              className="col-sm-1 col-md-8 col-lg-5"
+              onSubmit={handleCreateBooking}
+            >
               <div className="mb-3">
                 <label htmlFor="Agency" className="form-label">
                   Select Agency

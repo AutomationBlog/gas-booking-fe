@@ -264,20 +264,22 @@ const DashboardPage = () => {
                     <td>{booking.datetime}</td>
                     <td>{booking.status}</td>
                     <td>
-                      <button
-                        type="button"
-                        className="btn btn-outline-success"
-                        onClick={() => handleEditBooking(booking)}
-                      >
-                        <i className="bi bi-pencil"></i>
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-outline-danger mx-3"
-                        onClick={() => handleDeleteBooking(booking.bookingid)}
-                      >
-                        <i className="bi bi-trash"></i>
-                      </button>
+                      <div className="d-flex">
+                        <button
+                          type="button"
+                          className="btn btn-outline-success"
+                          onClick={() => handleEditBooking(booking)}
+                        >
+                          <i className="bi bi-pencil"></i>
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-outline-danger mx-3"
+                          onClick={() => handleDeleteBooking(booking.bookingid)}
+                        >
+                          <i className="bi bi-trash"></i>
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
