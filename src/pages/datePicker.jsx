@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { getDay } from "date-fns";
+import { GasBokingContext } from "../App";
 
-export const DateTimePicker = () => {
-  const [startDate, setStartDate] = useState(null);
+export default function DateTimePicker() {
+  const { dateTime, setDateTime } = React.useContext(GasBokingContext);
   const isWeekday = (date) => {
     const day = getDay(date);
     return day !== 0 && day !== 6;
   };
   return (
     <DatePicker
-      selected={startDate}
-      onChange={(date) => setStartDate(date)}
+      selected={dateTime}
+      onChange={(date) => setDateTime(date)}
       name="date"
-      value={startDate}
+      value={dateTime}
       filterDate={isWeekday}
       showTimeSelect
       timeIntervals={120}
@@ -23,4 +24,4 @@ export const DateTimePicker = () => {
       dateFormat="MMMM d, yyyy h:mm aa"
     />
   );
-};
+}

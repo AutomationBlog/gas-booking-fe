@@ -16,7 +16,6 @@ import {
   Container,
 } from "react-bootstrap";
 import { isAuthenticated } from "../services/Auth";
-import { DateTimePicker } from "./datePicker.jsx";
 import CreateBooking from "./CreateBooking.jsx";
 import EditBooking from "./EditBooking.jsx";
 

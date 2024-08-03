@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { gasProviders } from "../services/gasProvider";
 import { handledAPIPost } from "../services/Api";
 import { Navigate } from "react-router-dom";
-
+import DateTimePicker from "./datePicker.jsx";
+import { GasBokingContext } from "../App";
 export default function CreateBooking() {
+  const { dateTime } = React.useContext(GasBokingContext);
   let initalBookingErrors = {
     agencyname: { required: false },
     datetime: { required: false },
@@ -45,7 +47,7 @@ export default function CreateBooking() {
       hasError = true;
     }
     setBookingErrors({ ...errors });
-
+    // setBookingData({datetime: dateTime });
     try {
       if (!hasError) {
         setLoading(true);
