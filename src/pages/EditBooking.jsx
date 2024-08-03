@@ -6,12 +6,22 @@ import { propTypes } from "react-bootstrap/esm/Image";
 
 export default function EditBooking() {
   let initalBookingErrors = {
+    name: { required: false },
+    email: { required: false },
+    phone: { required: false },
+    address: { required: false },
+    pincode: { required: false },
     agencyname: { required: false },
     datetime: { required: false },
     custom_error: null,
   };
   const [bookingData, setBookingData] = useState({
     bookingid: "",
+    name: "",
+    email: "",
+    phone: 0,
+    address: "",
+    pincode: 0,
     agencyname: "",
     datetime: "",
   });
@@ -29,14 +39,22 @@ export default function EditBooking() {
   };
 
   useEffect(() => {
-    let name = JSON.parse(localStorage.getItem("userData")).user.name;
-    setBookingData({ name: name });
+    let name = JSON.parse(localStorage.getItem("bookingValue")).name;
+    let email = JSON.parse(localStorage.getItem("bookingValue")).email;
+    let phone = JSON.parse(localStorage.getItem("bookingValue")).phone;
+    let address = JSON.parse(localStorage.getItem("bookingValue")).address;
+    let pincode = JSON.parse(localStorage.getItem("bookingValue")).pincode;
     let bookingid = JSON.parse(localStorage.getItem("bookingValue")).bookingid;
     let agencyname = JSON.parse(
       localStorage.getItem("bookingValue")
     ).agencyname;
     let datetime = JSON.parse(localStorage.getItem("bookingValue")).datetime;
     setBookingData({
+      name: name,
+      email: email,
+      phone: phone,
+      address: address,
+      pincode: pincode,
       bookingid: bookingid,
       agencyname: agencyname,
       datetime: datetime,
@@ -91,6 +109,86 @@ export default function EditBooking() {
               className="col-sm-1 col-md-8 col-lg-5"
               onSubmit={handleCreateBooking}
             >
+              <div className="mb-3 mr-2">
+                <label htmlFor="Name" className="form-label">
+                  Name
+                </label>
+                {/* <DateTimePicker /> */}
+                <input
+                  className="form-control"
+                  type="text"
+                  name="name"
+                  onChange={handleChangeBooking}
+                  value={bookingData.name}
+                />
+                {bookingErrors.name.required && (
+                  <span className="text-danger">Name is required.</span>
+                )}
+              </div>
+              <div className="mb-3 mr-2">
+                <label htmlFor="email" className="form-label">
+                  Email
+                </label>
+                {/* <DateTimePicker /> */}
+                <input
+                  className="form-control"
+                  type="text"
+                  name="email"
+                  onChange={handleChangeBooking}
+                  value={bookingData.email}
+                />
+                {bookingErrors.email.required && (
+                  <span className="text-danger">Email is required.</span>
+                )}
+              </div>
+              <div className="mb-3 mr-2">
+                <label htmlFor="phone" className="form-label">
+                  Phone Number
+                </label>
+                {/* <DateTimePicker /> */}
+                <input
+                  className="form-control"
+                  type="number"
+                  name="phone"
+                  onChange={handleChangeBooking}
+                  value={bookingData.phone}
+                />
+                {bookingErrors.phone.required && (
+                  <span className="text-danger">Phone Number is required.</span>
+                )}
+              </div>
+              <div className="mb-3 mr-2">
+                <label htmlFor="address" className="form-label">
+                  Address
+                </label>
+                {/* <DateTimePicker /> */}
+                <input
+                  className="form-control"
+                  type="text"
+                  name="address"
+                  onChange={handleChangeBooking}
+                  value={bookingData.address}
+                />
+                {bookingErrors.datetime.required && (
+                  <span className="text-danger">Address is required.</span>
+                )}
+              </div>
+              <div className="mb-3 mr-2">
+                <label htmlFor="pincode" className="form-label">
+                  Pincode
+                </label>
+                {/* <DateTimePicker /> */}
+                <input
+                  className="form-control"
+                  type="text"
+                  name="pincode"
+                  onChange={handleChangeBooking}
+                  value={bookingData.pincode}
+                />
+                {bookingErrors.datetime.required && (
+                  <span className="text-danger">Pincode is required.</span>
+                )}
+              </div>
               <div className="mb-3">
                 <label htmlFor="Agency" className="form-label">
                   Select Agency
