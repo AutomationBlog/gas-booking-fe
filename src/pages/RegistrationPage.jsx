@@ -5,6 +5,7 @@ import { handledAPIPost } from "../services/Api";
 import { storeUserData } from "../services/Storage";
 import { isAuthenticated } from "../services/Auth";
 import { Link, Navigate } from "react-router-dom";
+import validator from "validator";
 
 const Registration = () => {
   const initialStateErrors = {
@@ -46,6 +47,32 @@ const Registration = () => {
       errors.password.required = true;
       hasError = true;
     }
+    if (validator.isEmail(formData.email) == false) {
+      errors.custom_error = "Email is not valid";
+      hasError = true;
+    }
+    if (
+      validator.isStrongPassword(formData.password, {
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+        returnScore: false,
+        pointsPerUnique: 1,
+        pointsPerRepeat: 0.5,
+        pointsForContainingLower: 10,
+        pointsForContainingUpper: 10,
+        pointsForContainingNumber: 10,
+        pointsForContainingSymbol: 10,
+      }) == false
+    ) {
+      errors.custom_error =
+        "Password is not strong" +
+        "\n" +
+        "Password must contain at least 8 characters, 1 lowercase, 1 uppercase, 1 number, 1 symbol";
+      hasError = true;
+    }
     setErrors({ ...errors });
     try {
       if (!hasError) {
@@ -70,11 +97,11 @@ const Registration = () => {
       alert(err.message);
     }
 
-    setFormData({
-      name: "",
-      email: "",
-      password: "",
-    });
+    // setFormData({
+    //   name: "",
+    //   email: "",
+    //   password: "",
+    // });
   };
 
   if (isAuthenticated()) {
@@ -111,7 +138,7 @@ const Registration = () => {
                 </label>
 
                 <input
-                  type="email"
+                  type="text"
                   className="form-control"
                   onChange={handleChange}
                   name="email"

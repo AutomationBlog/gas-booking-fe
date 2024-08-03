@@ -5,6 +5,7 @@ import "./LoginPage.css";
 import { isAuthenticated, isAdmin } from "../services/Auth";
 import { handledAPIPost } from "../services/Api";
 import { storeUserData } from "../services/Storage";
+import validator from "validator";
 
 const Login = () => {
   let initialStateErrors = {
@@ -39,6 +40,10 @@ const Login = () => {
       errors.password.required = true;
       hasError = true;
     }
+    if (validator.isEmail(loginform.email) == false) {
+      errors.custom_error = "Email is not valid";
+      hasError = true;
+    }
     setErrors({ ...errors });
     try {
       if (!hasError) {
@@ -69,10 +74,10 @@ const Login = () => {
       alert(error);
     }
 
-    setLoginform({
-      email: "",
-      password: "",
-    });
+    // setLoginform({
+    //   email: "",
+    //   password: "",
+    // });
   };
 
   if (isAuthenticated()) {
@@ -95,7 +100,7 @@ const Login = () => {
                   Email
                 </label>
                 <input
-                  type="email"
+                  type="text"
                   className="form-control"
                   onChange={handleChange}
                   name="email"
