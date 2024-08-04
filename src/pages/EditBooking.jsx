@@ -61,7 +61,7 @@ export default function EditBooking() {
     });
   }, []);
 
-  const handleCreateBooking = async (event) => {
+  const handleEditBooking = async (event) => {
     event.preventDefault();
     let errors = initalBookingErrors;
     let hasError = false;
@@ -246,7 +246,7 @@ export default function EditBooking() {
               <button
                 type="button"
                 className="btn btn-outline-success mt-3"
-                onClick={handleCreateBooking}
+                onClick={handleEditBooking}
               >
                 Edit Booking
               </button>

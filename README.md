@@ -17,8 +17,9 @@ GAS Booking APP
 - react-dom
 - react-redux
 - react-router-dom
+- validator
 
-npm install @reduxjs/toolkit axios jwt-decode react react-bootstrap react-datepicker react-dom react-redux react-router-dom
+npm install @reduxjs/toolkit axios jwt-decode react react-bootstrap react-datepicker react-dom react-redux react-router-dom validator
 
 ## Testing
 
@@ -26,17 +27,18 @@ npm run dev
 
 ## .env
 
-- VITE_LOCAL_URL=http://localhost:3000
-- VITE_CLOUD_URL=https://gas-booking-api.onrender.com
-- VITE_isLOCAL="false"
+    VITE_LOCAL_URL=http://localhost:3000
+    VITE_CLOUD_URL=https://gas-booking-api.onrender.com
+    VITE_isLOCAL="false"
+    VITE_RAZORPAY_KEY_ID=KEY_ID
 
 ## Page URLs
 
-    - "/" - Home
-    - "/login" - Login
-    - "/register" - Registration
-    - "/dashboard" - User Dashboard
-    - "/admin" - Admin Dashboard
+- "/" - Home
+- "/login" - Login
+- "/register" - Registration
+- "/dashboard" - User Dashboard
+- "/admin" - Admin Dashboard
 
 ## Functionality
 

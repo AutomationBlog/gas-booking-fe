@@ -6,6 +6,7 @@ import {
   handledAPIPost,
   handleAPIDelete,
 } from "../services/Api";
+import { handlePayment } from "../services/payment.js";
 import { gasProviders } from "../services/gasProvider.js";
 import {
   Navbar,
@@ -51,6 +52,9 @@ const DashboardPage = () => {
   const [loading, setLoading] = useState(false);
   const [isEditBooking, setIsEditBooking] = useState(false);
   const [errors, setErrors] = useState(initialStateErrors);
+  const [amount, setAmount] = useState({
+    amount: 1000,
+  });
   useEffect(() => {
     let name = JSON.parse(localStorage.getItem("userData")).user.name;
     let email = JSON.parse(localStorage.getItem("userData")).user.email;
@@ -159,7 +163,10 @@ const DashboardPage = () => {
     }));
   };
 
-  let editbooking;
+  const handleBookingPayment = async (bookingValue) => {
+    localStorage.setItem("bookingValue", JSON.stringify(bookingValue));
+    handlePayment(amount);
+  };
   const handleEditBooking = async (bookingValue) => {
     setIsEditBooking(!isEditBooking);
     localStorage.setItem("bookingValue", JSON.stringify(bookingValue));
@@ -268,13 +275,15 @@ const DashboardPage = () => {
                       <td>{booking.status}</td>
                       <td>
                         <div className="d-flex justify-content-evenly">
-                          <button
-                            type="button"
-                            className="btn btn-outline-primary"
-                            onClick={() => handlePayment(booking)}
-                          >
-                            <i className="bi bi-credit-card"></i>
-                          </button>
+                          {booking.status === "Open" && (
+                            <button
+                              type="button"
+                              className="btn btn-outline-primary"
+                              onClick={() => handleBookingPayment(booking)}
+                            >
+                              <i className="bi bi-credit-card"></i>
+                            </button>
+                          )}
                           <button
                             type="button"
                             className="btn btn-outline-success"

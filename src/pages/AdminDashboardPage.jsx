@@ -248,6 +248,10 @@ const DashboardPage = () => {
                 <tr>
                   <th scope="col">Booking Number</th>
                   <th scope="col">Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Phone</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Pincode</th>
                   <th scope="col">Agency Name</th>
                   <th scope="col">Date Time</th>
                   <th scope="col">Status</th>
@@ -259,6 +263,10 @@ const DashboardPage = () => {
                   <tr key={index}>
                     <td>{booking.bookingid}</td>
                     <td>{booking.name}</td>
+                    <td>{booking.email}</td>
+                    <td>{booking.phone}</td>
+                    <td>{booking.address}</td>
+                    <td>{booking.pincode}</td>
                     <td>{booking.agencyname}</td>
                     <td>{booking.datetime}</td>
                     <td>{booking.status}</td>

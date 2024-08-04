@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { gasProviders } from "../services/gasProvider";
 import { handledAPIPatch } from "../services/Api";
 import { Navigate } from "react-router-dom";
-import { propTypes } from "react-bootstrap/esm/Image";
 
 export default function EditBooking() {
   let initalBookingErrors = {
