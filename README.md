@@ -2,9 +2,13 @@
 
 GAS Booking APP
 
-## API Endpoints
+## Gas Booking APP
 
-[Gas Booking APP](https://gas-booking-app.netlify.app/)
+First starte the backend API and then start the frontend app.
+
+[Gas Booking Backend API](https://gas-booking-api.onrender.com/)
+
+[Gas Booking Frondend APP](https://gas-booking-app.netlify.app/)
 
 ## NPM Package Dependencies
 
@@ -56,6 +60,8 @@ npm run dev
       - Booking Id, Name, Agency Name, Delivery Date, Status
     - Edit
       - Edit Agency Name and Delivery Date of booking
+    - Payment
+      - Payment of booking using Razorpay
     - Delete
       - Delete booking from DB
 - Admin Dashboard
@@ -75,3 +81,9 @@ npm run dev
 
     Username: admin@gmail.com
     Password: admin
+
+## Git Repository
+
+[Backend Repository](https://github.com/automationblog/gas-booking-be)
+
+[Frontend Repository](https://github.com/automationblog/gas-booking-fe)
