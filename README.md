@@ -4,7 +4,7 @@ GAS Booking APP
 
 ## Gas Booking APP
 
-First starte the backend API and then start the frontend app.
+First start the backend API and then start the frontend app.
 
 [Gas Booking Backend API](https://gas-booking-api.onrender.com/)
 
