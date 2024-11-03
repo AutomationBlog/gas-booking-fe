@@ -48,7 +48,7 @@ npm run dev
 
 - Login - with email and password
 - Registration - with name, email and password
-- User Dahsboard
+- User Dashboard
   - Profile - name, email, phone, address, pincode
     - Update Profile
   - Logout
